@@ -1,6 +1,6 @@
 <template>
-  <div class="container mx-auto px-4 antialiase">
-    <div class="text-xl font-bold py-5 text-center">
+  <div class="lg:container mx-auto px-4 antialiase text-gray-800">
+    <div class="text-2xl font-bold py-5 text-center">
       <router-link class="transition-colors hover:text-green-500" to="/"
         >Home
       </router-link>

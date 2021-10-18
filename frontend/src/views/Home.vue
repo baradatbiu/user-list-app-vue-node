@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>This is a home page</h1>
-  </div>
+  <h1 class="text-xl font-bold py-10 text-center">User-List App</h1>
 </template>
 
 <script lang="ts">
