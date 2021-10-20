@@ -1,5 +1,5 @@
 <template>
-  <button class="bg-transparent p-1">
+  <button class="bg-transparent py-1">
     <svg
       class="h-6 w-6 text-red-600 transition-colors hover:text-red-700"
       viewBox="0 0 24 24"

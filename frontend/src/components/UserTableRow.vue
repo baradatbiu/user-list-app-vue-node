@@ -17,7 +17,16 @@
     <td class="px-3 border border-green-600">{{ user.email }}</td>
     <td class="px-3 border border-green-600">{{ user.phone }}</td>
     <td class="px-3 border border-green-600">
-      <remove-button @click="removeUser({ id: user.id })" />
+      <div class="flex items-center justify-center">
+        <enter-button
+          @click="$router.push({ name: 'User', params: { id: user.id } })"
+          title="Go to user"
+        />
+        <remove-button
+          @click="removeUser({ userId: user.id })"
+          title="Remove user"
+        />
+      </div>
     </td>
   </tr>
 </template>
@@ -26,10 +35,11 @@
 import { User } from "@/types/user";
 import { defineComponent, PropType } from "vue";
 import { mapActions } from "vuex";
+import EnterButton from "./UI/EnterButton.vue";
 import RemoveButton from "./UI/RemoveButton.vue";
 
 export default defineComponent({
-  components: { RemoveButton },
+  components: { RemoveButton, EnterButton },
   props: {
     user: {
       type: Object as PropType<User>,

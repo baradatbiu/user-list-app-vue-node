@@ -1,4 +1,4 @@
-import { Filters, Result, Users } from "@/types/user";
+import { Filters, Result, User, Users } from "@/types/user";
 import { createStore } from "vuex";
 
 export default createStore({
@@ -7,6 +7,7 @@ export default createStore({
     loading: false,
     currentFilter: "" as Filters,
     directSortOrder: true,
+    currentUser: {} as User,
   },
   mutations: {
     SET_USERS(state, users) {
@@ -21,8 +22,16 @@ export default createStore({
     TOOGLE_SORT_ORDER(state) {
       state.directSortOrder = !state.directSortOrder;
     },
-    REMOVE_USER(state, { id: userId }) {
+    REMOVE_USER(state, { userId }) {
       state.users = state.users.filter(({ id }) => id !== userId);
+    },
+    SET_CURRENT_USER(state, { userId }) {
+      const user = state.users.find(({ id }) => id === userId);
+
+      if (user) state.currentUser = user;
+    },
+    CLEAR_CURRENT_USER(state) {
+      state.currentUser = {} as User;
     },
   },
   actions: {
@@ -31,18 +40,37 @@ export default createStore({
         commit("SET_LOADING", true);
 
         const response = await fetch(
-          "https://randomuser.me/api/?results=7&inc=name,email,login,phone,picture&noinfo"
+          "https://randomuser.me/api/?results=7&inc=name,email,login,phone,picture,dob,location&noinfo"
         );
         const { results } = await response.json();
 
-        const users = results.map((user: Result) => ({
-          fullname: `${user.name.first} ${user.name.last}`,
-          email: user.email,
-          id: user.login.uuid,
-          login: user.login.username,
-          phone: user.phone,
-          picture: user.picture,
-        }));
+        const users = results.map((user: Result) => {
+          const {
+            name: { first, last },
+            email,
+            login: { uuid: id, username: login, password },
+            phone,
+            picture,
+            location: {
+              street: { name: street },
+              city,
+              postcode,
+            },
+            dob: { age },
+          } = user;
+
+          return {
+            fullname: `${first} ${last}`,
+            email,
+            id,
+            login,
+            phone,
+            picture,
+            age,
+            address: `${postcode} ${city} ${street}`,
+            password,
+          };
+        });
 
         commit("SET_USERS", users);
       } catch (error) {
@@ -51,14 +79,20 @@ export default createStore({
         commit("SET_LOADING", false);
       }
     },
+    setCurrentUser({ commit }, { userId }) {
+      commit("SET_CURRENT_USER", { userId });
+    },
+    clearCurrentUser({ commit }) {
+      commit("CLEAR_CURRENT_USER");
+    },
     changeSortFilter({ commit }, filter: Filters) {
       commit("SET_CURRENT_FILTER", filter);
     },
     toogleSortOrder({ commit }) {
       commit("TOOGLE_SORT_ORDER");
     },
-    removeUser({ commit }, { id }) {
-      commit("REMOVE_USER", { id });
+    removeUser({ commit }, { userId }) {
+      commit("REMOVE_USER", { userId });
     },
   },
 });

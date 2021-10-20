@@ -20,10 +20,12 @@ export default defineComponent({
   components: { UserList, UserFilter },
   name: "Users",
   computed: {
-    ...mapState(["loading"]),
+    ...mapState(["users", "loading"]),
   },
   async created() {
-    await this.fetchUsers();
+    if (this.users.length === 0) {
+      await this.fetchUsers();
+    }
   },
   methods: {
     ...mapActions(["fetchUsers"]),

@@ -1,5 +1,8 @@
 <template>
-  <div class="flex items-center justify-end mb-6 uppercase">
+  <div
+    class="flex items-center justify-end mb-6 uppercase"
+    style="min-width: 500px"
+  >
     <span class="font-medium">sort by</span>
     <filter-button
       v-for="(key, value) in filters"
