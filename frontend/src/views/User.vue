@@ -5,6 +5,7 @@
 
 <script lang="ts">
 import UserCard from "@/components/UserCard.vue";
+import { ActionTypes } from "@/store/actions";
 import { defineComponent } from "vue";
 import { mapActions, mapState } from "vuex";
 
@@ -28,7 +29,10 @@ export default defineComponent({
     this.setCurrentUser({ userId });
   },
   methods: {
-    ...mapActions(["setCurrentUser", "clearCurrentUser"]),
+    ...mapActions({
+      setCurrentUser: ActionTypes.SET_CURRENT_USER,
+      clearCurrentUser: ActionTypes.CLEAR_CURRENT_USER,
+    }),
   },
 });
 </script>

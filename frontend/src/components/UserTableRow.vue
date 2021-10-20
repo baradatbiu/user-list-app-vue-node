@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts">
+import { ActionTypes } from "@/store/actions";
 import { User } from "@/types/user";
 import { defineComponent, PropType } from "vue";
 import { mapActions } from "vuex";
@@ -47,7 +48,7 @@ export default defineComponent({
     },
   },
   methods: {
-    ...mapActions(["removeUser"]),
+    ...mapActions({ removeUser: ActionTypes.REMOVE_USER }),
   },
 });
 </script>

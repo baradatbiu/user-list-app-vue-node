@@ -15,6 +15,7 @@ import { defineComponent } from "vue";
 import UserList from "@/components/UserList.vue";
 import UserFilter from "@/components/UserFilter.vue";
 import { mapActions, mapState } from "vuex";
+import { ActionTypes } from "@/store/actions";
 
 export default defineComponent({
   components: { UserList, UserFilter },
@@ -28,7 +29,9 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapActions(["fetchUsers"]),
+    ...mapActions({
+      fetchUsers: ActionTypes.FETCH_USERS,
+    }),
   },
 });
 </script>

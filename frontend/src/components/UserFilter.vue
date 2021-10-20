@@ -21,6 +21,7 @@
 </template>
 
 <script lang="ts">
+import { ActionTypes } from "@/store/actions";
 import { Filters } from "@/types/user";
 import { defineComponent } from "vue";
 import { mapActions, mapState } from "vuex";
@@ -38,7 +39,10 @@ export default defineComponent({
     ...mapState(["currentFilter", "directSortOrder"]),
   },
   methods: {
-    ...mapActions(["changeSortFilter", "toogleSortOrder"]),
+    ...mapActions({
+      changeSortFilter: ActionTypes.CHANGE_SORT_FILTER,
+      toogleSortOrder: ActionTypes.TOOGLE_SORT_ORDER,
+    }),
   },
 });
 </script>
