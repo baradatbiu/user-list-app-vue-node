@@ -3,4 +3,11 @@ module.exports = {
   transform: {
     "^.+\\.vue$": "vue-jest",
   },
+  collectCoverage: true,
+  collectCoverageFrom: [
+    "src/components/**/*.vue",
+    "src/views/**/*.vue",
+    "src/store/**/*.ts",
+  ],
+  coverageReporters: ["html", "text-summary"],
 };
