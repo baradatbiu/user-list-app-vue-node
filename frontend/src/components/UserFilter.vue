@@ -9,10 +9,12 @@
       :key="key"
       :title="value"
       :active="currentFilter === key"
+      :data-test="`filter-${key}`"
       @click="changeSortFilter(key)"
     />
     <span class="mx-3 h-6 w-0.5 bg-gray-600"></span>
     <sort-button
+      data-test="sort-btn"
       :active="Boolean(currentFilter)"
       :invertedIcon="!directSortOrder"
       @click="toogleSortOrder"
@@ -24,7 +26,6 @@
 import { ActionTypes } from "@/store/actions";
 import { Filters } from "@/types/user";
 import { defineComponent } from "vue";
-import { mapActions, mapState } from "vuex";
 import FilterButton from "./UI/FilterButton.vue";
 import SortButton from "./UI/SortButton.vue";
 
@@ -36,13 +37,20 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapState(["currentFilter", "directSortOrder"]),
+    currentFilter() {
+      return this.$store.state.currentFilter;
+    },
+    directSortOrder() {
+      return this.$store.state.directSortOrder;
+    },
   },
   methods: {
-    ...mapActions({
-      changeSortFilter: ActionTypes.CHANGE_SORT_FILTER,
-      toogleSortOrder: ActionTypes.TOOGLE_SORT_ORDER,
-    }),
+    toogleSortOrder() {
+      this.$store.dispatch(ActionTypes.TOOGLE_SORT_ORDER);
+    },
+    changeSortFilter(filter: Filters) {
+      this.$store.dispatch(ActionTypes.CHANGE_SORT_FILTER, filter);
+    },
   },
 });
 </script>

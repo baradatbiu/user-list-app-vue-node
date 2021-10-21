@@ -14,14 +14,18 @@
 import { defineComponent } from "vue";
 import UserList from "@/components/UserList.vue";
 import UserFilter from "@/components/UserFilter.vue";
-import { mapActions, mapState } from "vuex";
 import { ActionTypes } from "@/store/actions";
 
 export default defineComponent({
   components: { UserList, UserFilter },
   name: "Users",
   computed: {
-    ...mapState(["users", "loading"]),
+    users() {
+      return this.$store.state.users;
+    },
+    loading() {
+      return this.$store.state.loading;
+    },
   },
   async created() {
     if (this.users.length === 0) {
@@ -29,9 +33,9 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapActions({
-      fetchUsers: ActionTypes.FETCH_USERS,
-    }),
+    fetchUsers() {
+      this.$store.dispatch(ActionTypes.FETCH_USERS);
+    },
   },
 });
 </script>

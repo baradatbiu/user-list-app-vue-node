@@ -19,12 +19,14 @@
     <td class="px-3 border border-green-600">
       <div class="flex items-center justify-center">
         <enter-button
-          @click="$router.push({ name: 'User', params: { id: user.id } })"
+          @click="redirectToUser"
           title="Go to user"
+          data-test="enter-btn"
         />
         <remove-button
-          @click="removeUser({ userId: user.id })"
+          @click="removeUser"
           title="Remove user"
+          data-test="remove-btn"
         />
       </div>
     </td>
@@ -35,7 +37,6 @@
 import { ActionTypes } from "@/store/actions";
 import { User } from "@/types/user";
 import { defineComponent, PropType } from "vue";
-import { mapActions } from "vuex";
 import EnterButton from "./UI/EnterButton.vue";
 import RemoveButton from "./UI/RemoveButton.vue";
 
@@ -48,7 +49,12 @@ export default defineComponent({
     },
   },
   methods: {
-    ...mapActions({ removeUser: ActionTypes.REMOVE_USER }),
+    redirectToUser() {
+      this.$router.push({ name: "User", params: { id: this.user.id } });
+    },
+    removeUser() {
+      this.$store.dispatch(ActionTypes.REMOVE_USER, { userId: this.user.id });
+    },
   },
 });
 </script>

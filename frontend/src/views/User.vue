@@ -7,16 +7,15 @@
 import UserCard from "@/components/UserCard.vue";
 import { ActionTypes } from "@/store/actions";
 import { defineComponent } from "vue";
-import { mapActions, mapState } from "vuex";
 
 export default defineComponent({
   components: { UserCard },
   name: "User",
   computed: {
-    ...mapState({
-      user: "currentUser",
-    }),
-    userExist() {
+    user() {
+      return this.$store.state.currentUser;
+    },
+    userExist(): boolean {
       return Object.keys(this.user).length > 0;
     },
   },
@@ -24,15 +23,17 @@ export default defineComponent({
     this.clearCurrentUser();
   },
   created() {
-    const userId = this.$route.params.id;
+    const userId = this.$route.params.id as string;
 
-    this.setCurrentUser({ userId });
+    this.setCurrentUser(userId);
   },
   methods: {
-    ...mapActions({
-      setCurrentUser: ActionTypes.SET_CURRENT_USER,
-      clearCurrentUser: ActionTypes.CLEAR_CURRENT_USER,
-    }),
+    setCurrentUser(userId: string) {
+      this.$store.dispatch(ActionTypes.SET_CURRENT_USER, { userId });
+    },
+    clearCurrentUser() {
+      this.$store.dispatch(ActionTypes.CLEAR_CURRENT_USER);
+    },
   },
 });
 </script>

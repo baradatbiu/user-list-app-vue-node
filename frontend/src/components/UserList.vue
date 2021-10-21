@@ -23,7 +23,6 @@
 <script lang="ts">
 import { Filters, Users } from "@/types/user";
 import { defineComponent } from "vue";
-import { mapState } from "vuex";
 import HeaderCell from "./UI/HeaderCell.vue";
 import UserTableRow from "./UserTableRow.vue";
 
@@ -35,14 +34,23 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapState(["users", "currentFilter", "directSortOrder"]),
+    users() {
+      return this.$store.state.users;
+    },
+    currentFilter() {
+      return this.$store.state.currentFilter;
+    },
+    directSortOrder() {
+      return this.$store.state.directSortOrder;
+    },
     sortedUsers(): Users {
       if (this.currentFilter === "") return this.users;
 
       const usersClone = [...this.users];
+      const sortKey = this.currentFilter;
 
       const sortedUsers = usersClone.sort((a, b) =>
-        a[this.currentFilter].localeCompare(b[this.currentFilter])
+        a[sortKey].localeCompare(b[sortKey])
       );
 
       return this.directSortOrder ? sortedUsers : sortedUsers.reverse();
