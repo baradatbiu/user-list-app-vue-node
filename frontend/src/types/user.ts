@@ -37,7 +37,7 @@ export interface User {
     thumbnail: string;
   };
   age: number;
-  adress: string;
+  address: string;
   password: string;
 }
 
@@ -55,6 +55,6 @@ export enum Details {
   Email = "email",
   Phone = "phone",
   Age = "age",
-  Adress = "address",
+  Address = "address",
   Password = "password",
 }
