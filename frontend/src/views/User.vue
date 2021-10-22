@@ -19,7 +19,7 @@ export default defineComponent({
       return Object.keys(this.user).length > 0;
     },
   },
-  beforeRouteLeave() {
+  unmounted() {
     this.clearCurrentUser();
   },
   created() {

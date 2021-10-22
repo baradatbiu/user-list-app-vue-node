@@ -9,6 +9,7 @@
           :title="value"
           :active="currentFilter === key"
           :class="{ 'w-1/3': key === 'email' }"
+          data-test="table-th"
           >{{ value }}</header-cell
         >
         <th class="w-1/12 border border-green-600">Actions</th>

@@ -1,6 +1,10 @@
 <template>
   <div class="py-7 overflow-x-auto">
-    <p class="py-24 text-xl italic text-center" v-if="loading">
+    <p
+      class="py-24 text-xl italic text-center"
+      data-test="loader"
+      v-if="loading"
+    >
       ...loading in progress
     </p>
     <template v-else>
