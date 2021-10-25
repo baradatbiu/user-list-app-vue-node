@@ -1,4 +1,4 @@
-import { Filters, Result } from "@/types/user";
+import { Filters } from "@/types/user";
 
 import { ActionTree, ActionContext } from "vuex";
 import { Mutations, MutationTypes } from "./mutations";
@@ -43,38 +43,9 @@ export const actions: ActionTree<State, State> & Actions = {
     try {
       commit(MutationTypes.SET_LOADING, true);
 
-      const response = await fetch(
-        "https://randomuser.me/api/?results=7&inc=name,email,login,phone,picture,dob,location&noinfo"
-      );
-      const { results } = await response.json();
+      const response = await fetch("http://localhost:5000/api/users");
 
-      const users = results.map((user: Result) => {
-        const {
-          name: { first, last },
-          email,
-          login: { uuid: id, username: login, password },
-          phone,
-          picture,
-          location: {
-            street: { name: street },
-            city,
-            postcode,
-          },
-          dob: { age },
-        } = user;
-
-        return {
-          fullname: `${first} ${last}`,
-          email,
-          id,
-          login,
-          phone,
-          picture,
-          age,
-          address: `${postcode} ${city} ${street}`,
-          password,
-        };
-      });
+      const users = await response.json();
 
       commit(MutationTypes.SET_USERS, users);
     } catch (error) {

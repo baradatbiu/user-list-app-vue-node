@@ -1,0 +1,47 @@
+export const users = [
+  {
+    fullname: "Jerome Hart",
+    email: "jerome.hart@example.com",
+    id: "7692310c-e7c1-4c5f-9f33-98b3484474ff",
+    login: "blueelephant640",
+    phone: "021-522-4299",
+    picture: {
+      large: "https://randomuser.me/api/portraits/men/19.jpg",
+      medium: "https://randomuser.me/api/portraits/med/men/19.jpg",
+      thumbnail: "https://randomuser.me/api/portraits/thumb/men/19.jpg",
+    },
+    age: 49,
+    address: "78254 Ballybofey-Stranorlar Grafton Street",
+    password: "vbnm",
+  },
+  {
+    fullname: "Umut Özbir",
+    email: "umut.ozbir@example.com",
+    id: "fd91c830-768e-4e6e-b341-6f586f3a87e1",
+    login: "beautifulbutterfly192",
+    phone: "(284)-356-2835",
+    picture: {
+      large: "https://randomuser.me/api/portraits/men/75.jpg",
+      medium: "https://randomuser.me/api/portraits/med/men/75.jpg",
+      thumbnail: "https://randomuser.me/api/portraits/thumb/men/75.jpg",
+    },
+    age: 62,
+    address: "38400 İzmir Anafartalar Cd",
+    password: "antelope",
+  },
+  {
+    fullname: "Sebastian Rasmussen",
+    email: "sebastian.rasmussen@example.com",
+    id: "14ec4e74-8a4d-458f-96b0-9076357dd0d4",
+    login: "smallsnake448",
+    phone: "91533630",
+    picture: {
+      large: "https://randomuser.me/api/portraits/men/62.jpg",
+      medium: "https://randomuser.me/api/portraits/med/men/62.jpg",
+      thumbnail: "https://randomuser.me/api/portraits/thumb/men/62.jpg",
+    },
+    age: 47,
+    address: "89427 Pandrup Haveforeningen Kildegården",
+    password: "scooby1",
+  },
+];

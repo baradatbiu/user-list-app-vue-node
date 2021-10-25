@@ -5,7 +5,7 @@ import { mutations } from "@/store/mutations";
 import { state } from "@/store/state";
 import { actions, ActionTypes } from "@/store/actions";
 import { createStore } from "vuex";
-import { response } from "./results";
+import { users } from "./users";
 
 const store = createStore({
   state,
@@ -15,11 +15,11 @@ const store = createStore({
 
 describe("actions", () => {
   it("fetch users", async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(response));
+    fetchMock.mockResponseOnce(JSON.stringify(users));
 
     await store.dispatch(ActionTypes.FETCH_USERS);
 
-    expect(store.state.users).toHaveLength(response.results.length);
+    expect(store.state.users).toHaveLength(users.length);
 
     fetchMock.resetMocks();
   });
