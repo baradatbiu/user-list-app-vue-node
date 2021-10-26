@@ -8,6 +8,7 @@
     "serve": "nodemon app.js"
   },
   "dependencies": {
+    "cache-manager": "^3.4.4",
     "express": "^4.17.1"
   },
   "devDependencies": {
