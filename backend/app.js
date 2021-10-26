@@ -1,14 +1,12 @@
 import express from "express";
-import cacheManager from "cache-manager";
 import { fetchRandomUsers } from "./services/fetchRandomUsers.js";
+import { logger } from "./logger.js";
+import { memoryCache } from "./memoryCache.js";
 
 const app = express();
 const port = 5000;
-const memoryCache = cacheManager.caching({
-  store: "memory",
-  max: 10000,
-  ttl: 3600,
-});
+
+app.use(logger);
 
 app.get("/api/users", async (req, res) => {
   try {
