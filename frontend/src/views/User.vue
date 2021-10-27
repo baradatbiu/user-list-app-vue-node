@@ -22,14 +22,14 @@ export default defineComponent({
   unmounted() {
     this.clearCurrentUser();
   },
-  created() {
+  async created() {
     const userId = this.$route.params.id as string;
 
-    this.setCurrentUser(userId);
+    await this.fetchUser(userId);
   },
   methods: {
-    setCurrentUser(userId: string) {
-      this.$store.dispatch(ActionTypes.SET_CURRENT_USER, { userId });
+    fetchUser(userId: string) {
+      this.$store.dispatch(ActionTypes.FETCH_CURRENT_USER, { userId });
     },
     clearCurrentUser() {
       this.$store.dispatch(ActionTypes.CLEAR_CURRENT_USER);

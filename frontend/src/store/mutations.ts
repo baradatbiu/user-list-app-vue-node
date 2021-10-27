@@ -20,7 +20,10 @@ export type Mutations<S = State> = {
   ): void;
   [MutationTypes.TOOGLE_SORT_ORDER](state: S): void;
   [MutationTypes.REMOVE_USER](state: S, payload: { userId: string }): void;
-  [MutationTypes.SET_CURRENT_USER](state: S, payload: { userId: string }): void;
+  [MutationTypes.SET_CURRENT_USER](
+    state: S,
+    payload: State["currentUser"]
+  ): void;
   [MutationTypes.CLEAR_CURRENT_USER](state: S): void;
 };
 
@@ -40,10 +43,8 @@ export const mutations: MutationTree<State> & Mutations = {
   [MutationTypes.REMOVE_USER](state, { userId }) {
     state.users = state.users.filter(({ id }) => id !== userId);
   },
-  [MutationTypes.SET_CURRENT_USER](state, { userId }) {
-    const user = state.users.find(({ id }) => id === userId);
-
-    if (user) state.currentUser = user;
+  [MutationTypes.SET_CURRENT_USER](state, user) {
+    state.currentUser = user;
   },
   [MutationTypes.CLEAR_CURRENT_USER](state) {
     state.currentUser = {};

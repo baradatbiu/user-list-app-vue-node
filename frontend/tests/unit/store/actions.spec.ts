@@ -10,8 +10,12 @@ const store = createStore({
   actions,
 });
 
+const mockUser = mockUsers[1];
+
 jest.mock("@/services/UserService", () => ({
   getAll: jest.fn(() => Promise.resolve({ data: mockUsers })),
+  get: jest.fn(() => Promise.resolve({ data: mockUser })),
+  delete: jest.fn(() => Promise.resolve()),
 }));
 
 describe("actions", () => {
@@ -21,12 +25,12 @@ describe("actions", () => {
     expect(store.state.users).toHaveLength(mockUsers.length);
   });
 
-  it("set current user", () => {
-    const checkUser = store.state.users[1];
+  it("fetch current user", async () => {
+    await store.dispatch(ActionTypes.FETCH_CURRENT_USER, {
+      userId: mockUser.id,
+    });
 
-    store.dispatch(ActionTypes.SET_CURRENT_USER, { userId: checkUser.id });
-
-    expect(store.state.currentUser).toEqual(checkUser);
+    expect(store.state.currentUser).toEqual(mockUser);
   });
 
   it("clear current user", () => {
@@ -35,11 +39,9 @@ describe("actions", () => {
     expect(store.state.currentUser).toEqual({});
   });
 
-  it("remove user", () => {
-    const checkUser = store.state.users[1];
+  it("remove user", async () => {
+    await store.dispatch(ActionTypes.REMOVE_USER, { userId: mockUser.id });
 
-    store.dispatch(ActionTypes.REMOVE_USER, { userId: checkUser.id });
-
-    expect(store.state.users).toEqual(expect.not.arrayContaining([checkUser]));
+    expect(store.state.users).toEqual(expect.not.arrayContaining([mockUser]));
   });
 });

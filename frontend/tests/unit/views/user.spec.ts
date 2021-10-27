@@ -19,9 +19,12 @@ describe("view/User.vue", () => {
   });
 
   it("set user is called with expected params", () => {
-    expect($store.dispatch).toHaveBeenCalledWith(ActionTypes.SET_CURRENT_USER, {
-      userId: checkId,
-    });
+    expect($store.dispatch).toHaveBeenCalledWith(
+      ActionTypes.FETCH_CURRENT_USER,
+      {
+        userId: checkId,
+      }
+    );
   });
 
   it("clear user is called if component unmount", () => {

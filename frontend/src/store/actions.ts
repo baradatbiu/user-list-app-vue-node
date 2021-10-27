@@ -7,7 +7,7 @@ import { State } from "./state";
 
 export enum ActionTypes {
   FETCH_USERS = "FETCH_USERS",
-  SET_CURRENT_USER = "SET_CURRENT_USER",
+  FETCH_CURRENT_USER = "FETCH_CURRENT_USER",
   CLEAR_CURRENT_USER = "CLEAR_CURRENT_USER",
   CHANGE_SORT_FILTER = "CHANGE_SORT_FILTER",
   TOOGLE_SORT_ORDER = "TOOGLE_SORT_ORDER",
@@ -23,7 +23,7 @@ type AugmentedActionContext = {
 
 export interface Actions {
   [ActionTypes.FETCH_USERS]({ commit }: AugmentedActionContext): Promise<void>;
-  [ActionTypes.SET_CURRENT_USER](
+  [ActionTypes.FETCH_CURRENT_USER](
     { commit }: AugmentedActionContext,
     payload: { userId: string }
   ): void;
@@ -53,8 +53,18 @@ export const actions: ActionTree<State, State> & Actions = {
       commit(MutationTypes.SET_LOADING, false);
     }
   },
-  [ActionTypes.SET_CURRENT_USER]({ commit }, { userId }) {
-    commit(MutationTypes.SET_CURRENT_USER, { userId });
+  async [ActionTypes.FETCH_CURRENT_USER]({ commit }, { userId }) {
+    try {
+      commit(MutationTypes.SET_LOADING, true);
+
+      const { data: user } = await UserService.get({ userId });
+
+      commit(MutationTypes.SET_CURRENT_USER, user);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      commit(MutationTypes.SET_LOADING, false);
+    }
   },
   [ActionTypes.CLEAR_CURRENT_USER]({ commit }) {
     commit(MutationTypes.CLEAR_CURRENT_USER);
@@ -65,7 +75,17 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.TOOGLE_SORT_ORDER]({ commit }) {
     commit(MutationTypes.TOOGLE_SORT_ORDER);
   },
-  [ActionTypes.REMOVE_USER]({ commit }, { userId }) {
-    commit(MutationTypes.REMOVE_USER, { userId });
+  async [ActionTypes.REMOVE_USER]({ commit }, { userId }) {
+    try {
+      commit(MutationTypes.SET_LOADING, true);
+
+      await UserService.delete({ userId });
+
+      commit(MutationTypes.REMOVE_USER, { userId });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      commit(MutationTypes.SET_LOADING, false);
+    }
   },
 };
