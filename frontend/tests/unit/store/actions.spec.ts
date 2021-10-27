@@ -1,11 +1,8 @@
-import { enableFetchMocks } from "jest-fetch-mock";
-enableFetchMocks();
-
 import { mutations } from "@/store/mutations";
 import { state } from "@/store/state";
 import { actions, ActionTypes } from "@/store/actions";
 import { createStore } from "vuex";
-import { users } from "./users";
+import { users as mockUsers } from "./users";
 
 const store = createStore({
   state,
@@ -13,15 +10,15 @@ const store = createStore({
   actions,
 });
 
+jest.mock("@/services/UserService", () => ({
+  getAll: jest.fn(() => Promise.resolve({ data: mockUsers })),
+}));
+
 describe("actions", () => {
   it("fetch users", async () => {
-    fetchMock.mockResponseOnce(JSON.stringify(users));
-
     await store.dispatch(ActionTypes.FETCH_USERS);
 
-    expect(store.state.users).toHaveLength(users.length);
-
-    fetchMock.resetMocks();
+    expect(store.state.users).toHaveLength(mockUsers.length);
   });
 
   it("set current user", () => {

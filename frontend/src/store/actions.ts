@@ -1,3 +1,4 @@
+import UserService from "@/services/UserService";
 import { Filters } from "@/types/user";
 
 import { ActionTree, ActionContext } from "vuex";
@@ -43,9 +44,7 @@ export const actions: ActionTree<State, State> & Actions = {
     try {
       commit(MutationTypes.SET_LOADING, true);
 
-      const response = await fetch("http://localhost:5000/api/users");
-
-      const users = await response.json();
+      const { data: users } = await UserService.getAll();
 
       commit(MutationTypes.SET_USERS, users);
     } catch (error) {
