@@ -1,5 +1,8 @@
 <template>
-  <tr class="transition-colors hover:bg-green-50">
+  <tr
+    class="transition-colors hover:bg-green-50"
+    :class="{ 'opacity-50 pointer-events-none': loading }"
+  >
     <td class="p-2 border border-green-600">
       <div class="flex justify-center">
         <img
@@ -48,12 +51,25 @@ export default defineComponent({
       required: true,
     },
   },
+  data() {
+    return {
+      loading: false,
+    };
+  },
   methods: {
     redirectToUser() {
       this.$router.push({ name: "User", params: { id: this.user.id } });
     },
-    removeUser() {
-      this.$store.dispatch(ActionTypes.REMOVE_USER, { userId: this.user.id });
+    async removeUser() {
+      try {
+        this.loading = true;
+
+        await this.$store.dispatch(ActionTypes.REMOVE_USER, {
+          userId: this.user.id,
+        });
+      } finally {
+        this.loading = false;
+      }
     },
   },
 });

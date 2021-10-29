@@ -77,15 +77,11 @@ export const actions: ActionTree<State, State> & Actions = {
   },
   async [ActionTypes.REMOVE_USER]({ commit }, { userId }) {
     try {
-      commit(MutationTypes.SET_LOADING, true);
-
       await UserService.delete({ userId });
 
       commit(MutationTypes.REMOVE_USER, { userId });
     } catch (error) {
       console.log(error);
-    } finally {
-      commit(MutationTypes.SET_LOADING, false);
     }
   },
 };
