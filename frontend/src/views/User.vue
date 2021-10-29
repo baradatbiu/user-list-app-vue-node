@@ -1,5 +1,8 @@
 <template>
-  <user-card v-if="userExist" />
+  <p class="py-24 text-xl italic text-center" data-test="loader" v-if="loading">
+    ...loading in progress
+  </p>
+  <user-card v-else-if="userExist" />
   <p class="py-24 text-xl italic text-center" v-else>This user was not found</p>
 </template>
 
@@ -17,6 +20,9 @@ export default defineComponent({
     },
     userExist(): boolean {
       return Object.keys(this.user).length > 0;
+    },
+    loading() {
+      return this.$store.state.loading;
     },
   },
   unmounted() {
