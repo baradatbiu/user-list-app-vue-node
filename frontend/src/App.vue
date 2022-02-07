@@ -8,10 +8,27 @@
       <router-link class="transition-colors hover:text-green-500" to="/users"
         >Users</router-link
       >
+      <template v-if="$route.name === 'User'">
+        |
+        <span class="text-green-500">{{ userName }}</span>
+      </template>
     </div>
     <router-view />
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "User",
+  computed: {
+    userName() {
+      return this.$store.state.currentUser?.fullname || "...";
+    },
+  },
+});
+</script>
 
 <style scoped>
 a.router-link-exact-active {
