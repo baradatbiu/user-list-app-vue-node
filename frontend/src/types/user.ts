@@ -1,30 +1,3 @@
-export type Result = {
-  name: {
-    first: string;
-    last: string;
-  };
-  email: string;
-  login: {
-    uuid: string;
-    username: string;
-    password: string;
-  };
-  phone: string;
-  picture: {
-    large: string;
-    medium: string;
-    thumbnail: string;
-  };
-  location: {
-    street: { name: string };
-    city: string;
-    postcode: string;
-  };
-  dob: {
-    age: number;
-  };
-};
-
 export interface User {
   fullname: string;
   email: string;
@@ -39,6 +12,7 @@ export interface User {
   age: number;
   address: string;
   password: string;
+  rating: string;
 }
 
 export type Users = User[];
@@ -48,6 +22,7 @@ export enum Filters {
   Login = "login",
   Email = "email",
   Phone = "phone",
+  Rating = "rating",
 }
 
 export enum Details {

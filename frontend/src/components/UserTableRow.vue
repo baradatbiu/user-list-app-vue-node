@@ -19,6 +19,7 @@
     </td>
     <td class="px-3 border border-green-600">{{ user.email }}</td>
     <td class="px-3 border border-green-600">{{ user.phone }}</td>
+    <td class="px-3 border border-green-600">{{ user.rating }}</td>
     <td class="px-3 border border-green-600">
       <div class="flex items-center justify-center">
         <enter-button

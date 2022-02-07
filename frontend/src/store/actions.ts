@@ -46,7 +46,10 @@ export const actions: ActionTree<State, State> & Actions = {
 
       const { data: users } = await UserService.getAll();
 
-      commit(MutationTypes.SET_USERS, users);
+      commit(
+        MutationTypes.SET_USERS,
+        users.map((user) => ({ ...user, rating: "0" }))
+      );
     } catch (error) {
       console.log(error);
     } finally {

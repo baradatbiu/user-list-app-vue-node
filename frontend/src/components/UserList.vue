@@ -8,7 +8,7 @@
           :key="key"
           :title="value"
           :active="currentFilter === key"
-          :class="{ 'w-1/3': key === 'email' }"
+          :class="{ 'w-3/12': key === 'email', 'w-1/12': key === 'rating' }"
           data-test="table-th"
           >{{ value }}</header-cell
         >
