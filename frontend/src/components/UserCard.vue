@@ -9,7 +9,7 @@
     >
       {{ userInfoByField }}
     </div>
-    <ul class="flex">
+    <ul class="flex flex-wrap justify-center">
       <li v-for="tab in infoTabs" :key="tab" class="p-2 mx-1.5">
         <button
           :data-test="`tab-${tab}`"
