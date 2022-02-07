@@ -1,12 +1,6 @@
 <template>
   <div class="py-7 overflow-x-auto">
-    <p
-      class="py-24 text-xl italic text-center"
-      data-test="loader"
-      v-if="loading"
-    >
-      ...loading in progress
-    </p>
+    <loader v-if="loading" data-test="loader" />
     <template v-else>
       <user-filter />
       <user-list />
@@ -18,10 +12,11 @@
 import { defineComponent } from "vue";
 import UserList from "@/components/UserList.vue";
 import UserFilter from "@/components/UserFilter.vue";
+import Loader from "@/components/UI/Loader.vue";
 import { ActionTypes } from "@/store/actions";
 
 export default defineComponent({
-  components: { UserList, UserFilter },
+  components: { UserList, UserFilter, Loader },
   name: "Users",
   computed: {
     users() {

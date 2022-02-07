@@ -1,18 +1,17 @@
 <template>
-  <p class="py-24 text-xl italic text-center" data-test="loader" v-if="loading">
-    ...loading in progress
-  </p>
+  <loader v-if="loading" />
   <user-card v-else-if="userExist" />
   <p class="py-24 text-xl italic text-center" v-else>This user was not found</p>
 </template>
 
 <script lang="ts">
 import UserCard from "@/components/UserCard.vue";
+import Loader from "@/components/UI/Loader.vue";
 import { ActionTypes } from "@/store/actions";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: { UserCard },
+  components: { UserCard, Loader },
   name: "User",
   computed: {
     user() {
