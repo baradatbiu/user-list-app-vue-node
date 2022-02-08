@@ -1,7 +1,7 @@
 import { Filters, User, Users } from "@/types/user";
 
 export interface State {
-  users: [] | Users;
+  users: Users;
   loading: boolean;
   currentFilter: "" | Filters;
   directSortOrder: boolean;

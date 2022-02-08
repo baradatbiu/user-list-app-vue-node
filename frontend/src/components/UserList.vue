@@ -50,9 +50,11 @@ export default defineComponent({
       const usersClone = [...this.users];
       const sortKey = this.currentFilter;
 
-      const sortedUsers = usersClone.sort((a, b) =>
-        a[sortKey].localeCompare(b[sortKey])
-      );
+      const sortedUsers = usersClone.sort((a, b) => {
+        if (sortKey === Filters.Rating) return b[sortKey] - a[sortKey];
+
+        return a[sortKey].localeCompare(b[sortKey]);
+      });
 
       return this.directSortOrder ? sortedUsers : sortedUsers.reverse();
     },

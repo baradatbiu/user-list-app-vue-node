@@ -12,7 +12,7 @@ export interface User {
   age: number;
   address: string;
   password: string;
-  rating: string;
+  rating: number;
 }
 
 export type Users = User[];
@@ -33,3 +33,10 @@ export enum Details {
   Address = "address",
   Password = "password",
 }
+
+export interface UserRating {
+  id: string;
+  rating: number;
+}
+
+export type UserRatings = UserRating[];

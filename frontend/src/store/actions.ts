@@ -1,5 +1,5 @@
 import UserService from "@/services/UserService";
-import { Filters } from "@/types/user";
+import { Filters, UserRatings, UserRating } from "@/types/user";
 
 import { ActionTree, ActionContext } from "vuex";
 import { Mutations, MutationTypes } from "./mutations";
@@ -12,6 +12,9 @@ export enum ActionTypes {
   CHANGE_SORT_FILTER = "CHANGE_SORT_FILTER",
   TOOGLE_SORT_ORDER = "TOOGLE_SORT_ORDER",
   REMOVE_USER = "REMOVE_USER",
+  SET_USER_RATINGS = "SET_USER_RATINGS",
+  UPDATE_USER_RATING = "UPDATE_USER_RATING",
+  SET_CURRENT_USER_RATING = "SET_CURRENT_USER_RATING",
 }
 
 type AugmentedActionContext = {
@@ -37,6 +40,18 @@ export interface Actions {
     { commit }: AugmentedActionContext,
     payload: { userId: string }
   ): void;
+  [ActionTypes.SET_USER_RATINGS](
+    { commit }: AugmentedActionContext,
+    payload: UserRatings
+  ): void;
+  [ActionTypes.UPDATE_USER_RATING](
+    { commit }: AugmentedActionContext,
+    payload: UserRating
+  ): void;
+  [ActionTypes.SET_CURRENT_USER_RATING](
+    { commit }: AugmentedActionContext,
+    payload: UserRating
+  ): void;
 }
 
 export const actions: ActionTree<State, State> & Actions = {
@@ -48,7 +63,7 @@ export const actions: ActionTree<State, State> & Actions = {
 
       commit(
         MutationTypes.SET_USERS,
-        users.map((user) => ({ ...user, rating: "0" }))
+        users.map((user) => ({ ...user, rating: 0 }))
       );
     } catch (error) {
       console.log(error);
@@ -62,7 +77,7 @@ export const actions: ActionTree<State, State> & Actions = {
 
       const { data: user } = await UserService.get({ userId });
 
-      commit(MutationTypes.SET_CURRENT_USER, user);
+      commit(MutationTypes.SET_CURRENT_USER, { ...user, rating: 0 });
     } catch (error) {
       console.log(error);
     } finally {
@@ -86,5 +101,14 @@ export const actions: ActionTree<State, State> & Actions = {
     } catch (error) {
       console.log(error);
     }
+  },
+  [ActionTypes.SET_USER_RATINGS]({ commit }, ratings) {
+    commit(MutationTypes.SET_USER_RATINGS, ratings);
+  },
+  [ActionTypes.UPDATE_USER_RATING]({ commit }, rating) {
+    commit(MutationTypes.UPDATE_USER_RATING, rating);
+  },
+  [ActionTypes.SET_CURRENT_USER_RATING]({ commit }, rating) {
+    commit(MutationTypes.SET_CURRENT_USER_RATING, rating);
   },
 };

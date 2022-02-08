@@ -14,6 +14,7 @@ import UserList from "@/components/UserList.vue";
 import UserFilter from "@/components/UserFilter.vue";
 import Loader from "@/components/UI/Loader.vue";
 import { ActionTypes } from "@/store/actions";
+import { getLocalRatings } from "@/helpers/localUserRatings";
 
 export default defineComponent({
   components: { UserList, UserFilter, Loader },
@@ -28,13 +29,14 @@ export default defineComponent({
   },
   async created() {
     if (this.users.length === 0) {
-      await this.fetchUsers();
+      await this.$store.dispatch(ActionTypes.FETCH_USERS);
     }
-  },
-  methods: {
-    fetchUsers() {
-      this.$store.dispatch(ActionTypes.FETCH_USERS);
-    },
+
+    const ratings = getLocalRatings();
+
+    if (ratings.length) {
+      this.$store.dispatch(ActionTypes.SET_USER_RATINGS, ratings);
+    }
   },
 });
 </script>

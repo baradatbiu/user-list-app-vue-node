@@ -9,6 +9,7 @@ import UserCard from "@/components/UserCard.vue";
 import Loader from "@/components/UI/Loader.vue";
 import { ActionTypes } from "@/store/actions";
 import { defineComponent } from "vue";
+import { getLocalRatings } from "@/helpers/localUserRatings";
 
 export default defineComponent({
   components: { UserCard, Loader },
@@ -25,20 +26,22 @@ export default defineComponent({
     },
   },
   unmounted() {
-    this.clearCurrentUser();
+    this.$store.dispatch(ActionTypes.CLEAR_CURRENT_USER);
   },
   async created() {
     const userId = this.$route.params.id as string;
 
-    await this.fetchUser(userId);
-  },
-  methods: {
-    fetchUser(userId: string) {
-      this.$store.dispatch(ActionTypes.FETCH_CURRENT_USER, { userId });
-    },
-    clearCurrentUser() {
-      this.$store.dispatch(ActionTypes.CLEAR_CURRENT_USER);
-    },
+    await this.$store.dispatch(ActionTypes.FETCH_CURRENT_USER, { userId });
+
+    const ratings = getLocalRatings();
+    const currentUserRating = ratings.find(({ id }) => id === userId);
+
+    if (currentUserRating) {
+      this.$store.dispatch(
+        ActionTypes.SET_CURRENT_USER_RATING,
+        currentUserRating
+      );
+    }
   },
 });
 </script>

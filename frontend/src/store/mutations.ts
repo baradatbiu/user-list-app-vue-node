@@ -1,5 +1,6 @@
 import { MutationTree } from "vuex";
 import { State } from "./state";
+import { UserRatings, UserRating } from "@/types/user";
 
 export enum MutationTypes {
   SET_USERS = "SET_USERS",
@@ -9,6 +10,9 @@ export enum MutationTypes {
   REMOVE_USER = "REMOVE_USER",
   SET_CURRENT_USER = "SET_CURRENT_USER",
   CLEAR_CURRENT_USER = "CLEAR_CURRENT_USER",
+  SET_USER_RATINGS = "SET_USER_RATINGS",
+  UPDATE_USER_RATING = "UPDATE_USER_RATING",
+  SET_CURRENT_USER_RATING = "SET_CURRENT_USER_RATING",
 }
 
 export type Mutations<S = State> = {
@@ -25,6 +29,9 @@ export type Mutations<S = State> = {
     payload: State["currentUser"]
   ): void;
   [MutationTypes.CLEAR_CURRENT_USER](state: S): void;
+  [MutationTypes.SET_USER_RATINGS](state: S, payload: UserRatings): void;
+  [MutationTypes.UPDATE_USER_RATING](state: S, payload: UserRating): void;
+  [MutationTypes.SET_CURRENT_USER_RATING](state: S, payload: UserRating): void;
 };
 
 export const mutations: MutationTree<State> & Mutations = {
@@ -48,5 +55,19 @@ export const mutations: MutationTree<State> & Mutations = {
   },
   [MutationTypes.CLEAR_CURRENT_USER](state) {
     state.currentUser = {};
+  },
+  [MutationTypes.SET_USER_RATINGS](state, ratings) {
+    state.users = state.users.map((user) => ({
+      ...user,
+      rating: ratings.find(({ id }) => id === user.id)?.rating || 0,
+    }));
+  },
+  [MutationTypes.UPDATE_USER_RATING](state, newUserData) {
+    state.users.map((user) => {
+      if (user.id === newUserData.id) user.rating = newUserData.rating;
+    });
+  },
+  [MutationTypes.SET_CURRENT_USER_RATING](state, { rating }) {
+    state.currentUser.rating = rating;
   },
 };
