@@ -1,25 +1,19 @@
 import { Details } from "@/types/user";
-import { mount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
 import UserCard from "@/components/UserCard.vue";
+import { ActionTypes } from "@/store/actions";
+import { users as mockUsers } from "../store/users";
 
 const $store = {
   state: {
-    currentUser: {
-      fullname: "Lilly Dupont",
-      email: "lilly.dupont@example.com",
-      phone: "079 143 56 34",
-      picture: {
-        large: "https://randomuser.me/api/portraits/women/17.jpg",
-      },
-      age: 74,
-      address: "8976 St. Niklaus Rue du Stade",
-      password: "prodigy",
-    },
+    currentUser: mockUsers[1],
+    users: mockUsers,
   },
+  dispatch: jest.fn(),
 };
 
 describe("UserCard.vue", () => {
-  const wrapper = mount(UserCard, {
+  const wrapper = shallowMount(UserCard, {
     global: { mocks: { $store } },
   });
 
@@ -38,5 +32,16 @@ describe("UserCard.vue", () => {
     await checkTab.trigger("click");
 
     expect(userInfo.text()).toBe($store.state.currentUser[checkKey]);
+  });
+
+  it("update user rating", async () => {
+    const checkRating = { id: $store.state.currentUser.id, rating: 5 };
+
+    await wrapper.vm.updateRating(checkRating);
+
+    expect($store.dispatch).toHaveBeenCalledWith(
+      ActionTypes.SET_CURRENT_USER_RATING,
+      checkRating
+    );
   });
 });

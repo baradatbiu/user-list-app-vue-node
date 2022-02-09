@@ -6,6 +6,7 @@
         'opacity-20 pointer-events-none': !checkRatingRange(Directions.DOWN),
       }"
       @click="updateRating(Directions.DOWN)"
+      data-test="rating-down"
       >-</span
     >
     <span class="text-green-600">{{ user.rating }}</span>
@@ -15,6 +16,7 @@
         'opacity-20 pointer-events-none': !checkRatingRange(Directions.UP),
       }"
       @click="updateRating(Directions.UP)"
+      data-test="rating-up"
       >+</span
     >
   </div>

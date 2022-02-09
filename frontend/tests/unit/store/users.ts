@@ -13,6 +13,7 @@ export const users = [
     age: 49,
     address: "78254 Ballybofey-Stranorlar Grafton Street",
     password: "vbnm",
+    rating: 0,
   },
   {
     fullname: "Umut Özbir",
@@ -28,6 +29,7 @@ export const users = [
     age: 62,
     address: "38400 İzmir Anafartalar Cd",
     password: "antelope",
+    rating: 0,
   },
   {
     fullname: "Sebastian Rasmussen",
@@ -43,5 +45,6 @@ export const users = [
     age: 47,
     address: "89427 Pandrup Haveforeningen Kildegården",
     password: "scooby1",
+    rating: 0,
   },
 ];
