@@ -4,11 +4,9 @@
       class="h-32 w-32 p-1 mb-6 rounded-full border border-green-700 relative"
     >
       <img class="rounded-full" :src="user.picture.large" />
-      <div
+      <user-rating
         class="
-          flex flex-col
-          items-center
-          font-bold
+          flex-col
           text-2xl
           absolute
           left-full
@@ -17,27 +15,9 @@
           -translate-y-1/2
           ml-3
         "
-      >
-        <span
-          class="px-3 cursor-pointer"
-          :class="{
-            'opacity-20 pointer-events-none': !checkRatingRange(
-              Directions.DOWN
-            ),
-          }"
-          @click="updateRating(Directions.DOWN)"
-          >-</span
-        >
-        <span class="text-green-600">{{ user.rating }}</span>
-        <span
-          class="px-2 cursor-pointer"
-          :class="{
-            'opacity-20 pointer-events-none': !checkRatingRange(Directions.UP),
-          }"
-          @click="updateRating(Directions.UP)"
-          >+</span
-        >
-      </div>
+        :user="user"
+        @update-rating="updateRating"
+      />
     </div>
     <div
       data-test="user-info"
@@ -67,17 +47,17 @@
 
 <script lang="ts">
 import { ActionTypes } from "@/store/actions";
-import { Details } from "@/types/user";
-import { Directions } from "@/types/rating";
+import { Details, UserRating as Rating } from "@/types/user";
+import UserRating from "./UserRating.vue";
 import { defineComponent } from "vue";
 import { setLocalRatings } from "@/helpers/localUserRatings";
 
 export default defineComponent({
+  components: { UserRating },
   data() {
     return {
       currentTab: Details.Name,
       infoTabs: Details,
-      Directions,
     };
   },
   computed: {
@@ -92,25 +72,10 @@ export default defineComponent({
     changeTab(tab: Details) {
       this.currentTab = tab;
     },
-    async updateRating(direction: Directions) {
-      if (this.checkRatingRange(direction) === false) return;
-
-      const getRating = () => {
-        const currentRating = this.user.rating;
-
-        switch (direction) {
-          case Directions.UP:
-            return currentRating + 1;
-          case Directions.DOWN:
-            return currentRating - 1;
-        }
-      };
-
-      const currentUserRating = { id: this.user.id, rating: getRating() };
-
+    async updateRating(currentRating: Rating) {
       await this.$store.dispatch(
         ActionTypes.SET_CURRENT_USER_RATING,
-        currentUserRating
+        currentRating
       );
 
       const storeUsers = [
@@ -119,22 +84,12 @@ export default defineComponent({
       const userInStoreUsers = storeUsers.find(({ id }) => id === this.user.id);
 
       if (userInStoreUsers) {
-        userInStoreUsers.rating = currentUserRating.rating;
+        userInStoreUsers.rating = currentRating.rating;
       } else {
-        storeUsers.push(currentUserRating);
+        storeUsers.push(currentRating);
       }
 
       setLocalRatings(storeUsers);
-    },
-    checkRatingRange(direction: Directions) {
-      const currentRating = this.user.rating;
-
-      switch (direction) {
-        case Directions.UP:
-          return currentRating < 5;
-        case Directions.DOWN:
-          return currentRating > 0;
-      }
     },
   },
 });

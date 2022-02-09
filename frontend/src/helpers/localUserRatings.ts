@@ -1,4 +1,4 @@
-import { UserRatings } from "@/types/user";
+import { UserRatings, Filters } from "@/types/user";
 
 const KEY = "USER_RATINGS";
 
@@ -7,7 +7,7 @@ export function getLocalRatings(): UserRatings {
   const value = localStorage.getItem(KEY);
 
   const reviver = (k: string, v: string | number) => {
-    if (k === "rating") return Number(v);
+    if (k === Filters.Rating) return Number(v);
     return v;
   };
 
