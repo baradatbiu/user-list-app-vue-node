@@ -2,7 +2,7 @@ import { mount } from "@vue/test-utils";
 import UserRating from "@/components/UserRating.vue";
 
 const fakeUser = {
-  id: "77",
+  id: 7,
   rating: 3,
 };
 

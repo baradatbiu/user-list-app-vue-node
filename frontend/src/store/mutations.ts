@@ -23,7 +23,7 @@ export type Mutations<S = State> = {
     payload: State["currentFilter"]
   ): void;
   [MutationTypes.TOOGLE_SORT_ORDER](state: S): void;
-  [MutationTypes.REMOVE_USER](state: S, payload: { userId: string }): void;
+  [MutationTypes.REMOVE_USER](state: S, payload: { userId: number }): void;
   [MutationTypes.SET_CURRENT_USER](
     state: S,
     payload: State["currentUser"]

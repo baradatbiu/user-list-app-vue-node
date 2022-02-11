@@ -2,7 +2,7 @@ import { shallowMount } from "@vue/test-utils";
 import User from "@/views/User.vue";
 import { ActionTypes } from "@/store/actions";
 
-const checkId = "user";
+const checkId = 3;
 
 const $store = {
   state: {
@@ -11,7 +11,7 @@ const $store = {
   dispatch: jest.fn(),
 };
 
-const $route = { params: { id: "user" } };
+const $route = { params: { id: checkId } };
 
 describe("view/User.vue", () => {
   const wrapper = shallowMount(User, {

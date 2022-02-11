@@ -2,7 +2,7 @@ import http from "@/http-common";
 import { Users, User } from "@/types/user";
 
 type Payload = {
-  userId: string;
+  userId: number;
 };
 
 class UserService {

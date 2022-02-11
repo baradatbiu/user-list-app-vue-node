@@ -1,14 +1,10 @@
 export interface User {
   fullname: string;
   email: string;
-  id: string;
+  id: number;
   login: string;
   phone: string;
-  picture: {
-    large: string;
-    medium: string;
-    thumbnail: string;
-  };
+  picture: string;
   age: number;
   address: string;
   password: string;
@@ -35,7 +31,7 @@ export enum Details {
 }
 
 export interface UserRating {
-  id: string;
+  id: number;
   rating: number;
 }
 

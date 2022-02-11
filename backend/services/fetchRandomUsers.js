@@ -51,9 +51,9 @@ function updatedUsers(users) {
     const {
       name: { first, last },
       email,
-      login: { uuid: id, username: login, password },
+      login: { username: login, password },
       phone,
-      picture,
+      picture: { large: picture },
       location: {
         street: { name: street },
         city,
@@ -65,13 +65,13 @@ function updatedUsers(users) {
     return {
       fullname: `${first} ${last}`,
       email,
-      id,
       login,
       phone,
       picture,
       age,
       address: `${postcode} ${city} ${street}`,
       password,
+      rating: 0,
     };
   });
 }

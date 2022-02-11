@@ -8,10 +8,7 @@
   >
     <td class="p-2 border border-green-600">
       <div class="flex justify-center">
-        <img
-          class="object-contain h-12 w-12 rounded"
-          :src="user.picture.thumbnail"
-        />
+        <img class="object-contain h-12 w-12 rounded" :src="user.picture" />
       </div>
     </td>
     <td class="px-3 border border-green-600">

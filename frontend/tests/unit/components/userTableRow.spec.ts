@@ -2,16 +2,14 @@ import { mount } from "@vue/test-utils";
 import UserTableRow from "@/components/UserTableRow.vue";
 import { ActionTypes } from "@/store/actions";
 
-const checkId = "check-id";
+const checkId = 3;
 
 const fakeUser = {
   id: checkId,
   fullname: "Lilly Dupont",
   email: "lilly.dupont@example.com",
   phone: "079 143 56 34",
-  picture: {
-    thumbnail: "https://randomuser.me/api/portraits/women/17.jpg",
-  },
+  picture: "https://randomuser.me/api/portraits/women/17.jpg",
 };
 
 const mockRouter = {

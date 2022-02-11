@@ -28,7 +28,7 @@ export interface Actions {
   [ActionTypes.FETCH_USERS]({ commit }: AugmentedActionContext): Promise<void>;
   [ActionTypes.FETCH_CURRENT_USER](
     { commit }: AugmentedActionContext,
-    payload: { userId: string }
+    payload: { userId: number }
   ): void;
   [ActionTypes.CLEAR_CURRENT_USER]({ commit }: AugmentedActionContext): void;
   [ActionTypes.CHANGE_SORT_FILTER](
@@ -38,7 +38,7 @@ export interface Actions {
   [ActionTypes.TOOGLE_SORT_ORDER]({ commit }: AugmentedActionContext): void;
   [ActionTypes.REMOVE_USER](
     { commit }: AugmentedActionContext,
-    payload: { userId: string }
+    payload: { userId: number }
   ): void;
   [ActionTypes.SET_USER_RATINGS](
     { commit }: AugmentedActionContext,
@@ -61,10 +61,7 @@ export const actions: ActionTree<State, State> & Actions = {
 
       const { data: users } = await UserService.getAll();
 
-      commit(
-        MutationTypes.SET_USERS,
-        users.map((user) => ({ ...user, rating: 0 }))
-      );
+      commit(MutationTypes.SET_USERS, users);
     } catch (error) {
       console.log(error);
     } finally {
@@ -77,7 +74,7 @@ export const actions: ActionTree<State, State> & Actions = {
 
       const { data: user } = await UserService.get({ userId });
 
-      commit(MutationTypes.SET_CURRENT_USER, { ...user, rating: 0 });
+      commit(MutationTypes.SET_CURRENT_USER, user);
     } catch (error) {
       console.log(error);
     } finally {

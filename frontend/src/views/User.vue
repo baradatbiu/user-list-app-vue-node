@@ -29,11 +29,12 @@ export default defineComponent({
     this.$store.dispatch(ActionTypes.CLEAR_CURRENT_USER);
   },
   async created() {
-    const userId = this.$route.params.id as string;
+    const userId = Number(this.$route.params.id);
 
     await this.$store.dispatch(ActionTypes.FETCH_CURRENT_USER, { userId });
 
     const ratings = getLocalRatings();
+
     const currentUserRating = ratings.find(({ id }) => id === userId);
 
     if (currentUserRating) {

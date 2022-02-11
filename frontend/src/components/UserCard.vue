@@ -3,7 +3,7 @@
     <div
       class="h-32 w-32 p-1 mb-6 rounded-full border border-green-700 relative"
     >
-      <img class="rounded-full" :src="user.picture.large" />
+      <img class="rounded-full" :src="user.picture" />
       <user-rating
         class="
           flex-col
