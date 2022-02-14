@@ -9,7 +9,7 @@ export const getUsers = async (req, res) => {
     if (!users?.length) {
       const response = await fetchRandomUsers();
 
-      users = await db.any(userSql.init(response));
+      users = await db.any(userSql.fill(response));
 
       memoryCache.set("users", users);
     }

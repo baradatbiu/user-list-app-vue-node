@@ -1,4 +1,5 @@
 import express from "express";
+import { dbInit } from "./db/index.js";
 import { logger } from "./logger.js";
 import { users } from "./routes/users.js";
 
@@ -13,6 +14,11 @@ app.all("*", (req, res) => {
   res.status(404).send("fuck off");
 });
 
-app.listen(port, (req, res) => {
-  console.log("listen");
-});
+try {
+  await dbInit();
+
+  app.listen(port, () => console.log("listening"));
+} catch (err) {
+  console.error(err);
+  process.exit(1);
+}

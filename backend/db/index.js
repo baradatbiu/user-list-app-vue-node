@@ -10,11 +10,18 @@ const pgp = pgPromise();
 export const db = pgp(cn);
 
 export const userSql = {
-  create: sql("./sql/users/create.sql"),
   getAll: sql("./sql/users/getAll.sql"),
   get: sql("./sql/users/get.sql"),
   delete: sql("./sql/users/delete.sql"),
-  init: insertUsersQuery,
+  fill: insertUsersQuery,
+};
+
+export const dbInit = async () => {
+  try {
+    await db.none(sql("./sql/users/create.sql"));
+  } catch (error) {
+    console.log(error.message || error);
+  }
 };
 
 function sql(file) {
