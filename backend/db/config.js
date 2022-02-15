@@ -2,11 +2,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const {
-  PGSQL_HOST: HOST,
-  PGSQL_PORT: PORT,
-  PGSQL_USER: USER,
-  PGSQL_PASSWORD: PASSWORD,
-  PGSQL_DB: DB,
+  POSTGRES_HOST: HOST,
+  POSTGRES_PORT: PORT,
+  POSTGRES_USER: USER,
+  POSTGRES_PASSWORD: PASSWORD,
+  POSTGRES_DB: DB,
 } = process.env;
 
 export const cn = {
