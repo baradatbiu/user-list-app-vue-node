@@ -1,5 +1,4 @@
 import express from "express";
-import { dbInit } from "./db/index.js";
 import { logger } from "./logger.js";
 import { users } from "./routes/users.js";
 
@@ -15,8 +14,6 @@ app.all("*", (req, res) => {
 });
 
 try {
-  await dbInit();
-
   app.listen(port, () => console.log("listening"));
 } catch (err) {
   console.error(err);

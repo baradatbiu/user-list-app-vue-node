@@ -16,14 +16,6 @@ export const userSql = {
   fill: insertUsersQuery,
 };
 
-export const dbInit = async () => {
-  try {
-    await db.none(sql("./sql/users/create.sql"));
-  } catch (error) {
-    console.log(error.message || error);
-  }
-};
-
 function sql(file) {
   const fullPath = join(__dirname, file);
 
