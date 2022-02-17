@@ -3,7 +3,7 @@ import { logger } from "./logger.js";
 import { users } from "./routes/users.js";
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(logger);
 app.use(express.json());
@@ -14,7 +14,7 @@ app.all("*", (req, res) => {
 });
 
 try {
-  app.listen(port, () => console.log("listening"));
+  app.listen(port, () => console.log(`listening on port: ${port}`));
 } catch (err) {
   console.error(err);
   process.exit(1);
