@@ -7,9 +7,10 @@ const {
   POSTGRES_USER: USER,
   POSTGRES_PASSWORD: PASSWORD,
   POSTGRES_DB: DB,
+  DATABASE_URL: URL,
 } = process.env;
 
-export const cn = {
+export const cn = URL || {
   host: HOST,
   port: PORT,
   database: DB,
