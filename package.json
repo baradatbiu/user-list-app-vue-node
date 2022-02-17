@@ -1,0 +1,11 @@
+{
+  "name": "user-list-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "cd frontend && yarn serve",
+    "build": "cd frontend && yarn build",
+    "start:docker": "cd backend && yarn start:docker",
+    "start:api": "cd backend && yarn serve"
+  }
+}
