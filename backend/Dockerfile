@@ -1,8 +1,8 @@
 FROM node:lts-alpine
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
-# RUN npm ci --only=production
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn
 COPY . .
 EXPOSE 5000
-CMD [ "node", "app.js" ]
+CMD [ "yarn", "serve" ]
