@@ -1,4 +1,6 @@
-# frontend
+# Frontend project
+
+The project is based on **[Vue CLI](https://cli.vuejs.org/)** with **[TypeScript](https://www.typescriptlang.org/)**
 
 ## Project setup
 

@@ -1,8 +1,8 @@
-# Backend Project
+# Backend project
 
-The project is based on **[Nest](http://nestjs.com/)**
+The project is based on **[Express](https://expressjs.com/)**
 
-Database: **[PostgreSQL](https://www.postgresql.org/)** with **[Sequelize](https://sequelize.org/)**
+Database: **[PostgreSQL](https://www.postgresql.org/)**
 
 Container based on **[Docker](https://www.docker.com/)**
 
@@ -12,7 +12,7 @@ Container based on **[Docker](https://www.docker.com/)**
 
 1. yarn (_on first launch_)
 2. yarn start:docker
-3. yarn serve
+3. API runs on http://localhost:5000/ as /api/...
 
 ## How to open local database
 
@@ -21,3 +21,10 @@ Container based on **[Docker](https://www.docker.com/)**
 3. In dashboard click _Add New Server_
 4. In section **General** add name _(no value what name)_
 5. In section **Connection** in field **Host name/address** enter _`db`_ , in field **Username** change on _`postgres`_, in field **Password** add _`7514`_, after click button _Save_
+
+## How to deploy API to heroku
+
+1. heroku login
+2. heroku container:login
+3. heroku container:push web
+4. heroku container:release web

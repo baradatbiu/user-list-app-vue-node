@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: "/api",
+  baseURL: process.env.VUE_APP_API_URL + "/api",
   headers: { "Content-type": "application/json" },
 });
 
