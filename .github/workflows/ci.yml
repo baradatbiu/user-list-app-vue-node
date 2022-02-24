@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ develop ]
+    branches: [develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,12 +28,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '16'
-      - name: Create .env file
-        uses: SpicyPizza/create-envfile@v1.3.0
-        with:
-          envkey_UL_API_URL: https://ul-api.herokuapp.com/
-          directory: frontend
+          node-version: "16"
       - run: yarn install
       - run: yarn build
       - name: Deploy
