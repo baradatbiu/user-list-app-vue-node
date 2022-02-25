@@ -5,7 +5,7 @@ The project is available at <https://baradatbiu.github.io/user-list-app-vue-node
 ## Backend project setup(node/express)
 
 ```
-cd frontend
+cd backend
 
 yarn install
 ```
@@ -13,7 +13,7 @@ yarn install
 ## Frontend project setup(vue/typescript)
 
 ```
-cd backend
+cd frontend
 
 yarn install
 ```

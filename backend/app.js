@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 app.use("/api/users", users);
 
 app.all("*", (req, res) => {
-  res.status(404).send("fuck off");
+  res.status(404).send("Route not found");
 });
 
 try {
