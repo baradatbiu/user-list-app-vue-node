@@ -12,7 +12,7 @@ const {
 
 export const cn = URL || {
   host: HOST,
-  port: PORT,
+  port: Number(PORT),
   database: DB,
   user: USER,
   password: PASSWORD,

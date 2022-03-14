@@ -2,6 +2,7 @@ import pgPromise from "pg-promise";
 import { cn } from "./config.js";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
+import { UserDetails } from "types/User";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -16,13 +17,13 @@ export const userSql = {
   fill: insertUsersQuery,
 };
 
-function sql(file) {
+function sql(file: string) {
   const fullPath = join(__dirname, file);
 
   return new pgp.QueryFile(fullPath, { minify: true });
 }
 
-function insertUsersQuery(values) {
+function insertUsersQuery(values: UserDetails[]) {
   const userFields = [
     "fullname",
     "email",

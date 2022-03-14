@@ -5,12 +5,12 @@ import { fileURLToPath } from "url";
 
 const LOGS_FOLDER = "logs";
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const folderPath = join(__dirname, LOGS_FOLDER);
 
-existsSync(LOGS_FOLDER) || mkdirSync(LOGS_FOLDER);
+existsSync(folderPath) || mkdirSync(folderPath);
 
-const accessLogStream = createWriteStream(
-  join(__dirname, LOGS_FOLDER, "access.log"),
-  { flags: "a" }
-);
+const accessLogStream = createWriteStream(join(folderPath, "access.log"), {
+  flags: "a",
+});
 
 export const logger = morgan("tiny", { stream: accessLogStream });

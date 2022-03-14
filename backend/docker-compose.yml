@@ -10,7 +10,7 @@ services:
       POSTGRES_DB: "${POSTGRES_DB}"
     volumes:
       - db:/var/lib/postgresql/data
-      - ./db/sql/users/init.sql:/docker-entrypoint-initdb.d/create_table.sql
+      - ./src/db/sql/users/init.sql:/docker-entrypoint-initdb.d/create_table.sql
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
     restart: always

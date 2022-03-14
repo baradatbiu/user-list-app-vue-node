@@ -7,14 +7,14 @@ const port = process.env.PORT || 5000;
 
 app.use(logger);
 app.use(express.json());
-app.use((req, res, next) => {
+app.use((_req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, DELETE");
   next();
 });
 app.use("/api/users", users);
 
-app.all("*", (req, res) => {
+app.all("*", (_req, res) => {
   res.status(404).send("Route not found");
 });
 

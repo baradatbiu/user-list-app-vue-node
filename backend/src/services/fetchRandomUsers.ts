@@ -1,4 +1,5 @@
 import https from "https";
+import { UserDetails, FetchedUserDetails } from "types/User";
 
 const numberOfUsers = 7;
 const includingFields = [
@@ -18,7 +19,7 @@ const options = {
   )}&noinfo`,
 };
 
-export const fetchRandomUsers = () => {
+export const fetchRandomUsers = (): Promise<UserDetails[]> => {
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
       let body = "";
@@ -46,7 +47,7 @@ export const fetchRandomUsers = () => {
   });
 };
 
-function updatedUsers(users) {
+function updatedUsers(users: FetchedUserDetails[]): UserDetails[] {
   return users.map((user) => {
     const {
       name: { first, last },
@@ -54,11 +55,7 @@ function updatedUsers(users) {
       login: { username: login, password },
       phone,
       picture: { large: picture },
-      location: {
-        street: { name: street },
-        city,
-        postcode,
-      },
+      location: { street, city, postcode },
       dob: { age },
     } = user;
 
