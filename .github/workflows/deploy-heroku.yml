@@ -24,15 +24,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
       - name: Heroku Docker Container Deploy
-        uses: lucassarcanjo/heroku-deploy@2.1.17
+        uses: AkhileshNS/heroku-deploy@v3.12.12
         with:
-          # Email Linked to your Heroku Account
-          email: ${{ secrets.HEROKU_EMAIL }}
-          # Your Heroku API Key
-          api_key: ${{ secrets.HEROKU_API_KEY }}
-          # Your Heroku App Name
-          app_name: ul-api
-          # Dokerfile path
-          dockerfile_path: /backend
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          heroku_app_name: ul-api
+          usedocker: true
+          appdir: backend
